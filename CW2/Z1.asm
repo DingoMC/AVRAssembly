@@ -16,7 +16,6 @@ main:					; Kod główny programu (setup)
 	SBI DDRA, 0			; Ustaw bit 0 w DDRA (bit 0 jest wyjściem)
 	; Rejestr PORT odpowiada za ustalenie bitów wyjścia. Bity wejściowe domyślnie powinny mieć ustawione 1
 	SBI PORTA, 1		; Domyślne ustawienie bitu 1 w DDRA (bit wejściowy => Domyślne 1)
-	rjmp loop			; Skocz do pętli nieskończonej
 loop:					; Kod wykonywany cały czas (loop)
 	; Rejestr PIN przechowuje stany z zewnątrz (wejścia)
 	SBIS PINA, 1		; Pomiń następną instrukcję jeśli bit 1 w PINA jest ustawiony (Przycisk wciśnięty)
