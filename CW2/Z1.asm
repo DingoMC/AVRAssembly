@@ -1,25 +1,24 @@
-//Poniżej podaj swoje dane
-//<Imię i nazwisko>
-//<Nr indeksu>
-//<Grupa studencka>
-//<Grupa laboratoryjna>
-//Cw2Z1
 ///////////////////////
+//PA0->D0
+//PA1->W1
+//K1->GND
 
-.include "m32def.inc"	; Jakaś tam biblioteka
-.org 0x00				; coś tam z pamięcią (nieważne pisz)
-jmp main				; Skocz do maina
-.org 0x100				; to też coś z pamięcią (też pisz)
-main:					; Kod główny programu (setup)
-	; Rejestr DDR odpowiada za ustalenie kierunku portu (0->wejście, 1->wyjście)
-	CBI DDRA, 1			; Wyzeruj bit 1 w DDRA (bit 1 jest wejściem)
-	SBI DDRA, 0			; Ustaw bit 0 w DDRA (bit 0 jest wyjściem)
-	; Rejestr PORT odpowiada za ustalenie bitów wyjścia. Bity wejściowe domyślnie powinny mieć ustawione 1
-	SBI PORTA, 1		; Domyślne ustawienie bitu 1 w DDRA (bit wejściowy => Domyślne 1)
-loop:					; Kod wykonywany cały czas (loop)
-	; Rejestr PIN przechowuje stany z zewnątrz (wejścia)
-	SBIS PINA, 1		; Pomiń następną instrukcję jeśli bit 1 w PINA jest ustawiony (Przycisk wciśnięty)
-	SBI PORTA, 0		; Ustaw bit 0 na PORTA (Dioda LED zapali się) -> Wykona się jeśli nie spełni się warunek powyżej (coś jakby else)
-	SBIC PINA, 1		; Pomiń następną instrukcję jeśli bit 1 w PINA jest wyzerowany (Przycisk wyłączony)
-	CBI PORTA, 0		; Wyzeruj bit 0 na PORTA (Dioda LED nie zapali się) -> Wykona się jak przycisk będzie włączony
-	rjmp loop			; wróć na początek
+.include "m32def.inc"
+	
+	.org 0x00
+	jmp main
+
+	.org 0x100
+main: 				; program główny
+					; tutaj ciąg instrukcji inicjalizacyjnych
+	CBI DDRA, 1		; Bit 1 jako wejście (przycisk "1")
+	SBI PORTA, 1	; Podciągnięcie PA1 do zasilania
+	SBI DDRA, 0		; Bit 0 jako wyjście (dioda LED D0)
+loop:				; początek pętli głównej
+					; instrukcje pętli głównej
+	SBIS PINA, 1	; Jeżeli przycisk "1" nie będzie wciśnięty to pomiń następną instrukcję
+	CBI PORTA, 0	; Jeżeli przycisk "1" jest wciśnięty to zgaś diodę D0
+	SBIC PINA, 1	; Jeżeli przycisk "1" będzie wciśnięty to pomiń następną instrukcję
+	SBI PORTA, 0	; Jeżeli przycisk "1" nie jest wciśnięty to zapal diodę D0
+	rjmp loop 		; wróć na początek pętli głównej
+
