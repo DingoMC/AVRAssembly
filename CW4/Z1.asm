@@ -1,63 +1,70 @@
+///////////////////////
+// D0 -> PB0
+// D1 -> PB1
+// D2 -> PB2
+// D3 -> PB3
+// D4 -> PB4
+// D5 -> PB5
+// D6 -> PB6
+// D7 -> PB7
+// a -> PC0
+// b -> PC1
+// c -> PC2
+// d -> PC3
+// e -> PC4
+// f -> PC5
+// g -> PC6
+// dp -> PC7
+// GND -> W1
+// K1 -> PD3
+// GND -> C4
 .include "m32def.inc"
-	.org 0x00
-	JMP main
-
-	.org $0002
-	JMP proc_interrupt
-
-main:			;początek programu głównego
-	; inicjalizacje, konfiguracje
-	CLI ; Blokada przerwań podczas inicjalizacji
-	; Port A i C na wyjście
-	IN R16, DDRA
-	ANDI R16, 0
-	OUT DDRA, R16
-	IN R16, DDRC
-	ANDI R16, 0
-	OUT DDRC, R16
-	; Port D - linia 2 na wejście
-	IN R16, DDRD
-	ORI R16, (1<<2)
-	OUT DDRD, R16
-	; Podciąganie zasilania do linii D->2
-	IN R16, PORTD
-	ORI R16, (1<<2)
-	OUT PORTD, R16
-	; Port A na wyjściu same ON
-	IN R16, PORTA
-	ORI R16, 255
-	OUT PORTA, R16
-	; Port C na wyjściu pierwsza ON reszta OFF
+    
+    .org 0x00
+    jmp main
+    .org 0x004
+    jmp zmien
+main: 						; program główny - instrukcje inicjalizacyjne
+		CLI
+		LDI R16, high(RAMEND) ; inicjalizacja wskaźnika stosu
+		OUT SPL, R16
+		LDI R16, low(RAMEND)
+		OUT SPH, R16
+		LDI R16, 0b00010000 ; Inicjalizacja INT1
+		OUT GICR, R16
+		SBI PORTD, 3		; przycisk podłączony do D3
+		LDI R16, 2
+		OUT MCUCR, R16		; rejestr sterujacy przerwaniami
+		LDI R16, 255
+		OUT DDRB, R16
+		OUT DDRC, R16		; Port B i C jako wyjścia
+		OUT PORTB, R16		; Zapalenie linijki na porcie B
+		SBI PORTC, 7		; Zapalenie wyswietlacza
+		SEI					; Włączenie obsługi przerwań
+loop:			; początek pętli głównej
 	IN R16, PORTC
-	ORI R16, (1<<7)
-	ANDI R16, 128
-	OUT PORTC, R16
-	ANDI MCUCR, 0b11111100	; Bity 0 i 1 odpowiadają za INT 0
-	ORI MCUCR, 0b10		; Bit 0 - 0, Bit 1 - 1 > Reakcja na zbocze 1 -> 0
-	ORI GICR, (1<<INT0)	; What the fuck
-	SEI ; Odblokowanie przerwań
-work:
-	; kod programu głównego, zgodnie z wymaganiami, co ten program ma wykonywać
-	IN R16, PORTC
-	ROR R16
-	CPI R16, 0
-	BRNE PC + 2
-	ORI R16, 0b10000000
-	OUT PORTC, R16
+    ROR R16
+    OUT PORTC, R16	; Pobranie wartości z wyświetlacza i wysłanie nowej
 	CALL delay
-	JMP work	; jeżeli działania programu głównego mają być realizowane w nieskończonej pętli
-delay: ; Opóżnienie 20ms
-	ldi  r18, 104
-		ldi  r19, 229
-	L1: dec  r19
-		brne L1
-		dec  r18
-		brne L1
-	RET
-proc_interrupt:
-	; kod wymagany do prawidłowej obsługi przerwania (ew. także zamierzonej interakcji z programem głównym)
-	; Port A zmiana
-	IN R16, PORTA
-	EOR R16, 255
-	OUT PORTA, R16
-	RETI		; powrót z procedury obsługi przerwania
+	RJMP loop 	; wróć na początek pętli głównej
+delay:
+    ldi  r18, 26	; Opóźnienie 20ms
+    ldi  r19, 249
+L1: dec  r19
+    brne L1
+    dec  r18
+    brne L1
+    RET
+zmien:
+	PUSH R16
+    IN R16, SREG
+    PUSH R16
+
+    IN R16, PORTB
+    COM R16			; Zmiana stanu diod na przeciwny
+    OUT PORTB, R16
+
+    POP R16
+    OUT SREG, R16
+    POP R16
+	RETI
