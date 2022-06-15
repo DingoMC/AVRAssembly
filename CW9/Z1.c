@@ -108,7 +108,6 @@ int main(void) {
 	sendCommand(0x28);
 	sendCommand(0x0D);
 	sendCommand(0x06);							// Ustawienie kursora
-	sendCommand(0x8F);
 	PORTA |= 0x01;
 	sei();										// Włączam obsługe przerwań
 	while (1){}
