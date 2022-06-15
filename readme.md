@@ -1,4 +1,4 @@
-<h1>Punktacja</h1>
+<h1>Punktacja (46/84)</h1>
 <h2>CW2 (9.5/12)</h2>
 Z1 (4/4): OK
 <br>
@@ -46,3 +46,9 @@ Po CLEAR nie wyświetla zgodnie z wymaganiem/zmienia sposób wyświetlania
 Z3 (2/4): Działa, zastrzeżenia: typ integer (16bit) użyty bez uzasadnienia.
 Brak/źle eliminacji skutków odbić.
 Po przyciśnięciu CLEAR zmienia sposób wyświetlania, 
+<h2>CW9 (?/12)</h2>
+Z1 (?/4):
+<br>
+Z2 (?/4): 
+<br>
+Z3 (?/4): 
