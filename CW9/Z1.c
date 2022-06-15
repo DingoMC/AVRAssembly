@@ -1,9 +1,3 @@
-//Poniżej podaj swoje dane
-//Marcin Basak
-//95365
-//IIST 4
-//GL01
-//Cw9Z1
 //////////////////////////////////////////
 // PA7-4 -> D7-4 (JP29)
 // PA1 -> E (JP29)
@@ -96,6 +90,7 @@ ISR (TIMER0_COMP_vect) {        								// Przerwanie TIMER0
 int main(void) {
 	_delay_ms(15); 								// Czekam aż wyświetlacz LCD zostanie zainicjalizowany
 	DDRA |= 0xF3;								// Ustawiam bity 4 - 7, 0, 1 jako wyjście
+	DDRB |= 0xF0;								// Ustawiam kolumny jako wejście
 	PORTD |= 0x04;								// Podciągam 2 PIND pod zasilanie
 	PORTB |= 0x0F;								// Podciągam wiersze (PB0-3) pod zasilanie
 	MCUCR |= 0x0A;								// Ustawienie aktywacji przerwań w tryb falling-edge;
@@ -114,8 +109,6 @@ int main(void) {
 	sendCommand(0x0D);
 	sendCommand(0x06);							// Ustawienie kursora
 	sendCommand(0x8F);
-	sendCommand(0x04);
-	sendCommand(0x00);
 	PORTA |= 0x01;
 	sei();										// Włączam obsługe przerwań
 	while (1){}
