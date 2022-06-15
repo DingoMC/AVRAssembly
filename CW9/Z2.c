@@ -1,9 +1,3 @@
-//Poniżej podaj swoje dane
-//Marcin Basak
-//95365
-//IIST 4
-//GL01
-//Cw9Z2
 //////////////////////////////////////////
 // PA7-4 -> D7-4 (JP29)
 // PA1 -> E (JP29)
@@ -28,7 +22,7 @@ volatile char was_changed = 0;						// Flaga trybu wpisywania
 volatile int clear_counter = 0;						// Licznik naciśnięć przycisku clear
 volatile char was_up = 1;							// Flaga spawdzająca czy kursor został przeniesiony do nowej linii
 
-const char transcode[] PROGMEM  = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' }; // Tablica transkodowa
+const char transcode[] PROGMEM  = {'0', 'X', 'X', 'C', '4', '1', 'X', 'X', '7', '5', '2', 'X', '9', '8', '6', '3' }; // Tablica transkodowa
 
 void sendCommand(unsigned char data) {
 	PORTA = (PORTA & 0x0F) | (data & 0xF0);	// Zapisanie 4 starszych bitów
@@ -150,3 +144,4 @@ int main(void) {
 	sei();										// Włączam obsługe przerwań
 	while (1){}
 }
+
