@@ -1,7 +1,6 @@
 <h1>Treści zadań</h1>
 <h2>CW2</h2>
 1. Opracować, uruchomić i przetestować program powodujący, że w trakcie, gdy przycisk (button) dołączony do linii PA.1 jest niewciśnięty, dioda LED dołączona do linii PA.0 świeci. Gdy gdy przycisk dołączony do linii PA.1 jest wciśnięty, dioda LED dołączona do linii PA.0 nie świeci. Użyć rozkazów operujących na pojedynczych bitach.
-
 2. Opracować i uruchomić program, który powoduje cykliczną (pętla nieskończona) animację świecenia diod LED dołączonych do mikrokontrolera w nastepujący sposób: LED0|LED1|LED2|LED3-	PA0(PortA)|PB0(PortB)|PC0(PortC)|PD0(PortD).
 Sekwencja w animacji jest następująca:
   a. ON|ON|OFF|OFF - 100ms
@@ -9,17 +8,14 @@ Sekwencja w animacji jest następująca:
   c. OFF|ON|ON|OFF - 100ms
 
 Do realizacji opóźnienia użyć pętli opóźniających umieszczonych w odpowiednch miejscach w kodzie programu. Poza pętlami opóźnienia używać (w miarę możliwości) rozkazów operujących na pojedynczych bitach.
-
 3. Diody podłączone do mikrokontrolera jak w zadaniu 2. Do linii 7  w Port A dołączony jest przycisk "A", natomiast do linii 7 w Port D dołączony jest przycisk "B". Opracować program powodujący, że świecenie diod LED wykonuje następującą cykliczną animację w zależności od stanu przycisków:
   a. przyciski nieprzyciśnięte:
       - ON|ON|OFF|OFF - 500ms
-      - OFF|OFF|ON|ON - 200ms
-      
+      - OFF|OFF|ON|ON - 200ms  
   b. przycisk A przyciśnięty (niezależnie od stanu przycisku B)
     animacja jak w pkt a) z tym, że dioda podłączona do PA0 pozostaje w stanie ON
   c. przycisk B przyciśnięty (niezależnie od stanu przycisku A)
     animacja jak w pkt a) z tym, że dioda podłączona do PD0 pozostaje w stanie ON
-    
 Użyć rozkazów operujących na pojedynczych bitach. Użyć pętli opóźniających, identycznie jak wymaga tego zadanie 2. Konstruując program o wariantowym sposobie działania nie używać oddzielnych bloków kodu na realizację poszczególnych wariantów, ponieważ skutkiem takiego sposobu jest niedopuszczalna multiplikacja znaczącej częsci kodu takich bloków!
 
 <h2>CW3</h2>
