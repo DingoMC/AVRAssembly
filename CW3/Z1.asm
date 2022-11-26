@@ -24,16 +24,12 @@ main: 						; program główny
 	CBI DDRB, 1
 loop:						; początek pętli głównej
 	IN R16, PINB
-	CPI R16, 0b00000000		; Zmiana jeśli oba przyciski są wciśnięte
+	CPI R16, 0b00000011		; Jeśli przyciski są niewciśnięte zmień kombinację
 	BREQ zmiana
-	CPI R16, 0b00000001		; Zmiana jeśli przycisk "2" wciśnięty
-	BREQ zmiana
-	CPI R16, 0b00000010		; Zmiana jeśli przycisk "1" wciśnięty
-	BREQ zmiana
-	LDI R16, 0b00001111		; Domyślne świecenie ON|ON|ON|ON|OFF|OFF|OFF|OFF
+	LDI R16, 0b11110000		; Domyślne świecenie OFF|OFF|OFF|OFF|ON|ON|ON|ON
 	OUT PORTA, R16			; Wyświetlanie wzoru
 	RJMP loop 				; wróć na początek pętli głównej
 zmiana:
-	LDI R16, 0b11110000		; Zmień stan diod na OFF|OFF|OFF|OFF|ON|ON|ON|ON
+	LDI R16, 0b00001111		; Zmień stan diod na ON|ON|ON|ON|OFF|OFF|OFF|OFF
 	OUT PORTA, R16			; Wyświetlanie wzoru
 	RJMP loop				; wróć na początek pętli głównej
