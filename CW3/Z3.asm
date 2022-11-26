@@ -38,7 +38,7 @@ loop:						; początek pętli głównej
 	EOR R17, R20			; Implementacja maski dla D3 i D4
 	OUT PORTA, R17			; Wyświetlanie wzoru (z ewentualną maską)
 	RCALL op				; Wywołaj procedurę opóźnienia
-	OUT PORTA, R16
+	;OUT PORTA, R16 ?
 	LSL R16					; Przesuń wzór w lewo
 	CPI R16, 128			; Jeśli wzór dojdzie do końca to zresetuj animację
 	BREQ setup
