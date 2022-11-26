@@ -26,6 +26,8 @@ main: 						; program główny
 	OUT DDRA, R16			; Zapisanie stanów portów (1 - Wyjście)
 	SBI PORTB, 0			; przycisk na PB0 LED0/7 - ON
 	SBI PORTD, 0			; przycisk na PD0 LED3/4 - NEG
+	CBI DDRB, 0
+	CBI DDRD, 0
 setup:
 	LDI R16, 0b00000011
 loop:						; początek pętli głównej
