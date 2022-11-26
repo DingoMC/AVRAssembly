@@ -20,6 +20,8 @@ main: 						; program główny
 	OUT DDRA, R16			; Zapisanie stanów portów (1 - Wyjście)
 	SBI PORTB, 0			; przycisk "1" na PB0
 	SBI PORTB, 1			; przycisk "2" na PB1
+	CBI DDRB, 0
+	CBI DDRB, 1
 loop:						; początek pętli głównej
 	IN R16, PINB
 	CPI R16, 0b00000000		; Zmiana jeśli oba przyciski wciśnięte
