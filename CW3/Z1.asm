@@ -26,9 +26,9 @@ loop:						; początek pętli głównej
 	IN R16, PINB
 	CPI R16, 0b00000011		; Zmiana jeśli oba przyciski nie wciśnięte
 	BREQ zmiana
-	CPI R16, 0b00000001		; Zmiana jeśli przycisk "2" wciśnięty
+	CPI R16, 0b00000001		; Zmiana jeśli przycisk "1" wciśnięty
 	BREQ zmiana
-	CPI R16, 0b00000010		; Zmiana jeśli przycisk "1" wciśnięty
+	CPI R16, 0b00000010		; Zmiana jeśli przycisk "2" wciśnięty
 	BREQ zmiana
 	LDI R16, 0b00001111		; Domyślne świecenie ON|ON|ON|ON|OFF|OFF|OFF|OFF
 	OUT PORTA, R16			; Wyświetlanie wzoru
