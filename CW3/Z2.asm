@@ -28,12 +28,14 @@ ustaw:
 anim:
 	OUT PORTA, R16			; Wyświetl wzór
 	LSL R16					; Przesuń wzór w lewo
-	ldi  r18, 104			; Opóźnienie
-    ldi  r19, 229
-L1: dec  r19
-    brne L1
-    dec  r18
-    brne L1
+	RCALL op
 	CPI R16, 128			; Jeśli wzór dojdzie do końca to przejdź na początek
 	BRNE anim
 	RJMP ustaw
+op:
+	ldi  r18, 104			; Opóźnienie
+	ldi  r19, 229
+	L1: dec  r19
+	brne L1
+	dec  r18
+	brne L1
