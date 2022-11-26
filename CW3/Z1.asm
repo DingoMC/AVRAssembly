@@ -24,7 +24,7 @@ main: 						; program główny
 	CBI DDRB, 1
 loop:						; początek pętli głównej
 	IN R16, PINB
-	CPI R16, 0b00000000		; Zmiana jeśli oba przyciski nie wciśnięte
+	CPI R16, 0b00000000		; Zmiana jeśli oba przyciski są wciśnięte
 	BREQ zmiana
 	CPI R16, 0b00000001		; Zmiana jeśli przycisk "2" wciśnięty
 	BREQ zmiana
